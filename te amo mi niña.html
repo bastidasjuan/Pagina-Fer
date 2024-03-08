@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola Fer mi amor, Te amo, ¿Quieres volver a ser mi novia?<3</title>
+    <style>
+        /* Estilos CSS existentes */
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            position: relative;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            background-color: #eee;
+        }
+        /* Estilos para el título */
+        h1 {
+            color: pink; /* Cambia el color del texto a rosa */
+        }
+        /* Estilos para los corazones */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 65%, 0% 100%, 0 35%);
+            animation: float 5s linear infinite;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(500px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-500px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenido principal -->
+    <div class="container">
+        <h1>Hola Fer mi amor, Te amo, ¿Quieres volver a ser mi novia?<3</h1>
+        <div>
+            <button id="siButton" class="button" onclick="celebrar()">Sí</button>
+            <button id="noButton" class="button" onclick="moveButtonAndRespond('no')">No</button>
+        </div>
+    </div>
+    <!-- Elemento de audio -->
+    <audio id="audio" src="musica.mp3"></audio>
+    <!-- Script para manejar los corazones y el texto "Te amo" con CSS y reproducir audio -->
+    <script>
+        // Funciones JavaScript existentes
+        function celebrar() {
+            activarCorazones();
+            mostrarTexto();
+            reproducirAudio();
+        }
+
+        function moveButtonAndRespond(respuesta) {
+            var button = document.getElementById('noButton');
+            var container = document.querySelector('.container');
+            container.removeChild(button);
+            container.innerHTML += "<button class='button' style='position:relative; left:50px;' onclick='responder(\""+respuesta+"\")'>No</button>";
+        }
+
+        function responder(respuesta) {
+            alert("Has elegido: " + respuesta);
+            // Aquí podrías agregar código adicional
+        }
+
+        // Función para activar los corazones con CSS
+        function activarCorazones() {
+            var container = document.querySelector('.container');
+            var hearts = document.createElement('div');
+            hearts.classList.add('hearts');
+            container.appendChild(hearts);
+            for (var i = 0; i < 10; i++) {
+                createHeart(hearts);
+            }
+        }
+
+        function createHeart(hearts) {
+            var heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            hearts.appendChild(heart);
+            setTimeout(function() {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Función para mostrar el texto "Te amo" en posiciones aleatorias
+        function mostrarTexto() {
+            var container = document.querySelector('.container');
+            for (var i = 0; i < 20; i++) { // Cambia el número para controlar la cantidad de textos "Te amo"
+                var text = document.createElement('div');
+                text.textContent = 'Te amo';
+                text.classList.add('te-amo');
+                text.style.left = Math.random() * 100 + 'vw';
+                text.style.top = Math.random() * 100 + 'vh';
+                container.appendChild(text);
+            }
+        }
+
+        // Función para reproducir el audio
+        function reproducirAudio() {
+            var audio = document.getElementById('audio');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
